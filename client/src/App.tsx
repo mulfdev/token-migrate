@@ -8,6 +8,7 @@ function App() {
   const result = useBlockNumber();
   return (
     <>
+      <ConnectKitButton />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -16,7 +17,6 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <ConnectKitButton />
       <h2>Block Number</h2>
       {result.data?.toString()}
     </>
