@@ -15,6 +15,7 @@ import '@typechain/hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import './type-extensions'
+import './tasks/sendQuote'
 
 // Set your preferred authentication method
 //
