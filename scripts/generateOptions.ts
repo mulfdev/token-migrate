@@ -1,6 +1,9 @@
+import { deployments, ethers } from 'hardhat'
+
 import { Options } from '@layerzerolabs/lz-v2-utilities'
+
 import { MyOFTAdapterMock__factory } from '../typechain-types'
-import { ethers, deployments } from 'hardhat'
+
 import type { SendParamStruct } from '../typechain-types/contracts/MyOFTAdapter'
 
 const sendParam: SendParamStruct = {
