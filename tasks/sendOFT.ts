@@ -7,6 +7,9 @@ import { Options } from '@layerzerolabs/lz-v2-utilities'
 const GAS_LIMIT = 200_000 // Gas limit for the executor
 const MSG_VALUE = 0 // msg.value for the lzReceive() function on destination in wei
 
+// NOTE: Each wallet will need to approve the spender
+//
+
 export async function getOptions() {
     const _options = Options.newOptions().addExecutorLzReceiveOption(GAS_LIMIT, MSG_VALUE)
 
@@ -15,7 +18,7 @@ export async function getOptions() {
     return _options.toHex()
 }
 
-task('send:oft', 'Get a quote for sending OFT')
+task('send:oft', 'Send OFT Cross chain')
     .addParam('dsteid', 'Destination endpoint ID')
     .addParam('to', 'Recipient address')
     .addParam('amount', 'Amount to send (in ether)')
@@ -48,7 +51,6 @@ task('send:oft', 'Get a quote for sending OFT')
             console.log('Quote result:')
             console.log('Native fee:', ethers.utils.formatEther(quote.nativeFee), 'ETH')
             console.log('LZ token fee:', ethers.utils.formatEther(quote.lzTokenFee), 'ETH')
-
             console.log('Sending OFTs')
 
             const tx = await OFTAdapter.send(

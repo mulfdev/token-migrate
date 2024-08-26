@@ -2,7 +2,7 @@ import assert from 'assert'
 
 import { type DeployFunction } from 'hardhat-deploy/types'
 
-const contractName = 'MyOFTMock'
+const contractName = 'MyONFT721Mock'
 
 const deploy: DeployFunction = async (hre) => {
     const { getNamedAccounts, deployments } = hre
@@ -17,18 +17,11 @@ const deploy: DeployFunction = async (hre) => {
 
     const endpointV2Deployment = await hre.deployments.get('EndpointV2')
 
-    // If the oftAdapter configuration is defined on a network that is deploying an OFT,
-    // the deployment will log a warning and skip the deployment
-    if (hre.network.config.oftAdapter != null) {
-        console.warn(`oftAdapter configuration found on OFT deployment, skipping OFT deployment`)
-        return
-    }
-
     const { address } = await deploy(contractName, {
         from: deployer,
         args: [
-            'MyOFTMock', // name
-            'MOFTM', // symbol
+            'MyONFTMock', // name
+            'MONFTM', // symbol
             endpointV2Deployment.address, // LayerZero's EndpointV2 address
             deployer, // owner
         ],

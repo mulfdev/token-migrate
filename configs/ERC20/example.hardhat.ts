@@ -1,10 +1,4 @@
-// Get the environment configuration from .env file
-//
-// To make use of automatic environment setup:
-// - Duplicate .env.example file and name it .env
-// - Fill in the environment variables
 import 'dotenv/config'
-
 import 'hardhat-deploy'
 import 'hardhat-contract-sizer'
 import '@nomiclabs/hardhat-ethers'
@@ -14,29 +8,14 @@ import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
 import '@typechain/hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import './type-extensions'
-import './tasks/ofts'
+import '../../type-extensions'
+import './tasks/sendOFT'
 
-// Set your preferred authentication method
-//
-// If you prefer using a mnemonic, set a MNEMONIC environment variable
-// to a valid mnemonic
-const MNEMONIC = process.env.MNEMONIC
-
-// If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
-const accounts: HttpNetworkAccountsUserConfig | undefined = MNEMONIC
-    ? { mnemonic: MNEMONIC }
-    : PRIVATE_KEY
-      ? [PRIVATE_KEY]
-      : undefined
+if (typeof PRIVATE_KEY !== 'string') throw new Error('PRIVATE_KEY required')
 
-if (accounts == null) {
-    console.warn(
-        'Could not find MNEMONIC or PRIVATE_KEY environment variables. It will not be possible to execute transactions in your example.'
-    )
-}
+const accounts: HttpNetworkAccountsUserConfig = [PRIVATE_KEY]
 
 const config: HardhatUserConfig = {
     paths: {
@@ -60,14 +39,17 @@ const config: HardhatUserConfig = {
         ],
     },
     networks: {
+        opSepolia: {
+            eid: EndpointId.OPTSEP_V2_TESTNET,
+            url: process.env.OP_SEPOLIA_URL as string,
+            accounts,
+            oftAdapter: {
+                tokenAddress: '0x173930F6c8040AdB1dfa5d47839EE911eB276442', // Set the token address for the OFT adapter
+            },
+        },
         arbSepolia: {
             eid: EndpointId.ARBSEP_V2_TESTNET,
             url: process.env.ARB_SEPOLIA_URL as string,
-            accounts,
-        },
-        ruby: {
-            eid: EndpointId.TREASURE_V2_TESTNET,
-            url: 'https://ruby.rpc.caldera.xyz/http',
             accounts,
         },
     },
