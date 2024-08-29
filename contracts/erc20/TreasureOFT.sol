@@ -25,6 +25,10 @@ contract TreasureOFT is OFT {
         _;
     }
 
+    function sharedDecimals() public pure override returns (uint8) {
+        return 18;
+    }
+
     function mint(address _to, uint256 _amount) public onlyOwnerOrEndpoint {
         _mint(_to, _amount);
     }
