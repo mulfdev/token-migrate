@@ -1,8 +1,3 @@
-// Get the environment configuration from .env file
-//
-// To make use of automatic environment setup:
-// - Duplicate .env.example file and name it .env
-// - Fill in the environment variables
 import 'dotenv/config'
 
 import 'hardhat-deploy'
@@ -15,7 +10,7 @@ import '@typechain/hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import './type-extensions'
-import './tasks/ofts'
+import './tasks/bridgeERC20'
 
 // Set your preferred authentication method
 //

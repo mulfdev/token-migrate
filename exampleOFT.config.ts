@@ -17,12 +17,12 @@ import type { OAppOmniGraphHardhat, OmniPointHardhat } from '@layerzerolabs/tool
  *         },
  *     },
  */
-const opSepoliaAdapter: OmniPointHardhat = {
+const ArbitrumOFTAdapter: OmniPointHardhat = {
     eid: EndpointId.OPTSEP_V2_TESTNET,
-    contractName: 'MyOFTAdapterMock',
+    contractName: 'ArbitrumOFTAdapter',
 }
 
-const arbSepoliaOFT: OmniPointHardhat = {
+const TreasureOFT: OmniPointHardhat = {
     eid: EndpointId.ARBSEP_V2_TESTNET,
     contractName: 'MyOFTMock',
 }
@@ -30,20 +30,20 @@ const arbSepoliaOFT: OmniPointHardhat = {
 const config: OAppOmniGraphHardhat = {
     contracts: [
         {
-            contract: opSepoliaAdapter,
+            contract: ArbitrumOFTAdapter,
         },
         {
-            contract: arbSepoliaOFT,
+            contract: TreasureOFT,
         },
     ],
     connections: [
         {
-            from: opSepoliaAdapter,
-            to: arbSepoliaOFT,
+            from: ArbitrumOFTAdapter,
+            to: TreasureOFT,
         },
         {
-            from: arbSepoliaOFT,
-            to: opSepoliaAdapter,
+            from: TreasureOFT,
+            to: ArbitrumOFTAdapter,
         },
     ],
 }

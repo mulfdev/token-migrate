@@ -4,8 +4,6 @@ pragma solidity ^0.8.22;
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { OFT } from "@layerzerolabs/oft-evm/contracts/OFT.sol";
 
-// endpoint: 0x6C7Ab2202C98C4227C5c46f1417D81144DA716Ff
-
 contract TreasureOFT is OFT {
     constructor(
         string memory _name,

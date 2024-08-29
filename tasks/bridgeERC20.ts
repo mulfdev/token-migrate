@@ -1,16 +1,15 @@
 import { task } from 'hardhat/config'
-import { MyOFTAdapterMock__factory } from '../typechain-types'
+import { ArbitrumOFTAdapter__factory } from '../typechain-types'
+
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { SendParamStruct } from '../typechain-types/contracts/mocks/MyOFTAdapterMock'
 import { Options } from '@layerzerolabs/lz-v2-utilities'
 
-const GAS_LIMIT = 200_000 // Gas limit for the executor
-const MSG_VALUE = 0 // msg.value for the lzReceive() function on destination in wei
-
-// NOTE: Each wallet will need to approve the spender
-//
+// NOTE: Each wallet will need to approve the Adapter as a spender
 
 export async function getOptions() {
+    const GAS_LIMIT = 200_000 // Gas limit for the executor
+    const MSG_VALUE = 0 // msg.value for the lzReceive() function on destination in wei
     const _options = Options.newOptions().addExecutorLzReceiveOption(GAS_LIMIT, MSG_VALUE)
 
     console.info('Formatted Options:\n', _options.toHex(), '\n')
@@ -19,10 +18,8 @@ export async function getOptions() {
 }
 
 task('send:oft', 'Send OFT Cross chain')
-    .addParam('dsteid', 'Destination endpoint ID')
     .addParam('to', 'Recipient address')
     .addParam('amount', 'Amount to send (in ether)')
-    .addParam('minamount', 'Minimum amount to send (in ether)')
     .addOptionalParam('composemsg', 'Compose message', '0x')
     .addOptionalParam('oftcmd', 'OFT command', '0x')
     .setAction(async (taskArgs, hre: HardhatRuntimeEnvironment) => {
@@ -32,8 +29,8 @@ task('send:oft', 'Send OFT Cross chain')
 
         await deployments.all()
 
-        const OFTAdapterDeployment = await deployments.get('MyOFTAdapterMock')
-        const OFTAdapter = MyOFTAdapterMock__factory.connect(OFTAdapterDeployment.address, signer)
+        const OFTAdapterDeployment = await deployments.get('ArbitrumOFTAdapter')
+        const OFTAdapter = ArbitrumOFTAdapter__factory.connect(OFTAdapterDeployment.address, signer)
 
         const sendParam: SendParamStruct = {
             dstEid: parseInt(taskArgs.dsteid),
