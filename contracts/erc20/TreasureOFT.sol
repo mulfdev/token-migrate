@@ -25,6 +25,9 @@ contract TreasureOFT is OFT {
         _;
     }
 
+    /**
+     * @dev change this value if your token has nonstandard erc20 decimals value
+     */
     function sharedDecimals() public pure override returns (uint8) {
         return 18;
     }
