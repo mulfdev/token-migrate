@@ -59,6 +59,9 @@ const config: HardhatUserConfig = {
             eid: EndpointId.ARBSEP_V2_TESTNET,
             url: process.env.ARB_SEPOLIA_URL as string,
             accounts,
+            oftAdapter: {
+                tokenAddress: '0x5c4Ad33Eb304edc8d0b802d0c0A6b1eeCd4c9c99', // Set the existing token address for the OFT adapter
+            },
         },
         ruby: {
             eid: EndpointId.TREASURE_V2_TESTNET,

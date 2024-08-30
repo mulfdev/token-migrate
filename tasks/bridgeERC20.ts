@@ -33,10 +33,10 @@ task('send:oft', 'Send OFT Cross chain')
         const OFTAdapter = ArbitrumOFTAdapter__factory.connect(OFTAdapterDeployment.address, signer)
 
         const sendParam: SendParamStruct = {
-            dstEid: parseInt(taskArgs.dsteid),
+            dstEid: 40316,
             to: ethers.utils.hexZeroPad(taskArgs.to, 32),
             amountLD: ethers.utils.parseEther(taskArgs.amount),
-            minAmountLD: ethers.utils.parseEther(taskArgs.minamount),
+            minAmountLD: ethers.utils.parseEther((+taskArgs.amount * 0.95).toString()),
             extraOptions: await getOptions(),
             composeMsg: taskArgs.composemsg,
             oftCmd: taskArgs.oftcmd,

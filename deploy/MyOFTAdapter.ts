@@ -35,7 +35,8 @@ const deploy: DeployFunction = async (hre) => {
 
     // The token address must be defined in hardhat.config.ts
     if (hre.network.config.oftAdapter == null) {
-        throw new Error(`oftAdapter not configured on network config, skipping OFTWrapper deployment`)
+        console.warn(`oftAdapter not configured on network config, skipping OFTWrapper deployment`)
+        return
     }
 
     const { address } = await deploy(contractName, {
@@ -46,7 +47,7 @@ const deploy: DeployFunction = async (hre) => {
             deployer, // owner
         ],
         log: true,
-        skipIfAlreadyDeployed: false,
+        skipIfAlreadyDeployed: true,
     })
 
     console.log(`Deployed contract: ${contractName}, network: ${hre.network.name}, address: ${address}`)

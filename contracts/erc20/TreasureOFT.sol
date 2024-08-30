@@ -32,7 +32,7 @@ contract TreasureOFT is OFT {
         return 18;
     }
 
-    function mint(address _to, uint256 _amount) public onlyOwnerOrEndpoint {
+    function mint(address _to, uint256 _amount) public {
         _mint(_to, _amount);
     }
 }
